@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Français — フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu: #002395;
+    --blanc: #FFFFFF;
+    --rouge: #ED2939;
+    --bleu-light: #e8ecff;
+    --rouge-light: #ffeaec;
+    --text: #1a1a2e;
+    --text-soft: #5a5a7a;
+    --card-bg: #ffffff;
+    --shadow: 0 20px 60px rgba(0,35,149,0.12);
+    --shadow-hover: 0 30px 80px rgba(0,35,149,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #f4f5fb;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background decoration */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,35,149,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(237,41,57,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header {
+    background: var(--bleu);
+    color: white;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flag-stripe {
+    display: flex;
+    height: 6px;
+  }
+  .flag-stripe span:nth-child(1) { flex: 1; background: var(--bleu); }
+  .flag-stripe span:nth-child(2) { flex: 1; background: var(--blanc); }
+  .flag-stripe span:nth-child(3) { flex: 1; background: var(--rouge); }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 24px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .flag-icon {
+    width: 48px; height: 32px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .flag-icon span { flex: 1; }
+  .flag-icon span:nth-child(1) { background: var(--bleu); }
+  .flag-icon span:nth-child(2) { background: var(--blanc); }
+  .flag-icon span:nth-child(3) { background: var(--rouge); }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  header h1 em {
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 1rem;
+    display: block;
+    font-weight: 400;
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Registration Form ── */
+  .form-section {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--bleu), var(--rouge));
+  }
+
+  .form-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--bleu);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .form-section h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--bleu-light), transparent);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media(max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+  }
+  .field label .lang-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .field:first-child label .lang-tag { background: var(--bleu-light); color: var(--bleu); }
+  .field:last-child label .lang-tag { background: #fef3e2; color: #e67c00; }
+
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e8e8f0;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 90px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(0,35,149,0.08);
+  }
+  textarea::placeholder { color: #b0b0c8; }
+
+  .btn-add {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--bleu), #1a3aab);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.03em;
+  }
+  .btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,35,149,0.3);
+  }
+  .btn-add:active { transform: translateY(0); }
+
+  /* ── Card Viewer ── */
+  .cards-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .count-badge {
+    background: var(--rouge);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-soft);
+  }
+  .empty-state .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0.4;
+  }
+  .empty-state p { font-size: 0.9rem; line-height: 1.8; }
+
+  /* ── Flip Card ── */
+  .card-viewer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .card-wrapper {
+    width: 100%;
+    max-width: 560px;
+    height: 280px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 36px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .card-front {
+    background: var(--card-bg);
+    border: 2px solid rgba(0,35,149,0.08);
+  }
+  .card-front::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--bleu), #4466dd);
+    border-radius: 24px 0 0 24px;
+  }
+  .card-front::after {
+    content: 'Français';
+    position: absolute;
+    top: 16px; right: 20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bleu);
+    opacity: 0.5;
+  }
+
+  .card-back {
+    background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+    transform: rotateY(180deg);
+    border: none;
+  }
+  .card-back::after {
+    content: '日本語';
+    position: absolute;
+    top: 16px; right: 20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .card-hint {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    opacity: 0.35;
+    white-space: nowrap;
+  }
+  .card-front .card-hint { color: var(--text); }
+  .card-back .card-hint { color: white; }
+
+  .card-text-fr {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--text);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .card-text-ja {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: rgba(255,255,255,0.92);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── Audio Buttons ── */
+  .audio-controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-audio {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn-audio:hover { transform: translateY(-2px); }
+  .btn-audio:active { transform: scale(0.97); }
+  .btn-audio:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  .btn-audio-fr {
+    background: var(--bleu-light);
+    color: var(--bleu);
+    box-shadow: 0 4px 16px rgba(0,35,149,0.12);
+  }
+  .btn-audio-fr:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(0,35,149,0.2); }
+
+  .btn-audio-ja {
+    background: #fff0e8;
+    color: #c44d00;
+    box-shadow: 0 4px 16px rgba(237,41,57,0.1);
+  }
+  .btn-audio-ja:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(237,41,57,0.18); }
+
+  /* ── Navigation ── */
+  .nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn-nav {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid #e0e0ef;
+    background: white;
+    color: var(--text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .btn-nav:hover:not(:disabled) {
+    border-color: var(--bleu);
+    color: var(--bleu);
+    box-shadow: 0 6px 18px rgba(0,35,149,0.15);
+    transform: scale(1.08);
+  }
+  .btn-nav:disabled { opacity: 0.3; cursor: default; }
+
+  .card-counter {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    min-width: 80px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .card-counter strong {
+    color: var(--bleu);
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── Card List ── */
+  .card-list-toggle {
+    margin-top: 40px;
+    cursor: pointer;
+    background: none;
+    border: 2px dashed #d0d0e8;
+    border-radius: 12px;
+    padding: 14px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .card-list-toggle:hover {
+    border-color: var(--bleu);
+    color: var(--bleu);
+    background: var(--bleu-light);
+  }
+
+  .card-list {
+    display: none;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .card-list.hidden { display: none; }
+
+  .list-item {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid #eaeaf4;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .list-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--bleu), var(--rouge));
+  }
+  .list-item:hover { box-shadow: 0 4px 20px rgba(0,35,149,0.1); }
+
+  .list-item .fr { font-family: 'Playfair Display', serif; font-style: italic; color: var(--bleu); font-size: 0.9rem; margin-bottom: 6px; }
+  .list-item .ja { font-size: 0.82rem; color: var(--text-soft); }
+
+  .btn-delete {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: #ffe0e3;
+    color: var(--rouge);
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .list-item:hover .btn-delete { opacity: 1; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1a2e;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag-stripe"><span></span><span></span><span></span></div>
+  <div class="header-inner">
+    <div class="flag-icon"><span></span><span></span><span></span></div>
+    <h1>Cartes Éclair <em>フランス語フラッシュカード</em></h1>
+  </div>
+</header>
+
+<main>
+  <!-- Registration Form -->
+  <section class="form-section">
+    <h2>✏️ カードを追加</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label>フランス語文章 <span class="lang-tag">FR</span></label>
+        <textarea id="input-fr" placeholder="例：Je suis très heureux de vous rencontrer."></textarea>
+      </div>
+      <div class="field">
+        <label>日本語訳 <span class="lang-tag">JA</span></label>
+        <textarea id="input-ja" placeholder="例：お会いできてとても嬉しいです。"></textarea>
+      </div>
+    </div>
+    <button class="btn-add" onclick="addCard()">
+      <span>＋</span> カードを登録する
+    </button>
+  </section>
+
+  <!-- Card Viewer -->
+  <section class="cards-section">
+    <h2>
+      フラッシュカード
+      <span class="count-badge" id="count-badge">0</span>
+    </h2>
+
+    <div id="viewer-empty" class="empty-state">
+      <span class="empty-icon">🃏</span>
+      <p>まだカードがありません。<br>上のフォームからフランス語文章を登録しましょう！</p>
+    </div>
+
+    <div id="viewer" class="card-viewer" style="display:none">
+      <!-- Flip Card -->
+      <div class="card-wrapper" onclick="flipCard()" id="card-wrapper">
+        <div class="card-inner" id="card-inner">
+          <div class="card-face card-front">
+            <div class="card-text-fr" id="card-fr-text"></div>
+            <span class="card-hint">クリックして日本語を見る</span>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-text-ja" id="card-ja-text"></div>
+            <span class="card-hint">クリックしてフランス語に戻る</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Controls -->
+      <div class="audio-controls">
+        <button class="btn-audio btn-audio-fr" onclick="speakFr()" id="btn-fr">
+          🔊 フランス語で聴く
+        </button>
+        <button class="btn-audio btn-audio-ja" onclick="speakJa()" id="btn-ja">
+          🔊 日本語で聴く
+        </button>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav-controls">
+        <button class="btn-nav" id="btn-prev" onclick="prevCard()">←</button>
+        <div class="card-counter">
+          <strong id="cur-num">1</strong> / <span id="total-num">1</span>
+        </div>
+        <button class="btn-nav" id="btn-next" onclick="nextCard()">→</button>
+      </div>
+    </div>
+
+    <!-- List Toggle -->
+    <button class="card-list-toggle" onclick="toggleList(this)" id="list-toggle" style="display:none">
+      📋 登録済みカード一覧を表示
+    </button>
+    <div class="card-list hidden" id="card-list"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let cards = JSON.parse(localStorage.getItem('fr-cards') || '[]');
+  let currentIndex = 0;
+  let isFlipped = false;
+
+  function save() {
+    localStorage.setItem('fr-cards', JSON.stringify(cards));
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function addCard() {
+    const fr = document.getElementById('input-fr').value.trim();
+    const ja = document.getElementById('input-ja').value.trim();
+    if (!fr || !ja) { showToast('⚠️ 両方の欄を入力してください'); return; }
+    cards.push({ fr, ja });
+    save();
+    document.getElementById('input-fr').value = '';
+    document.getElementById('input-ja').value = '';
+    currentIndex = cards.length - 1;
+    render();
+    showToast('✅ カードを追加しました！');
+  }
+
+  function render() {
+    const isEmpty = cards.length === 0;
+    document.getElementById('viewer-empty').style.display = isEmpty ? '' : 'none';
+    document.getElementById('viewer').style.display = isEmpty ? 'none' : 'flex';
+    document.getElementById('list-toggle').style.display = isEmpty ? 'none' : '';
+    document.getElementById('count-badge').textContent = cards.length;
+
+    if (!isEmpty) {
+      const card = cards[currentIndex];
+      document.getElementById('card-fr-text').textContent = card.fr;
+      document.getElementById('card-ja-text').textContent = card.ja;
+      document.getElementById('cur-num').textContent = currentIndex + 1;
+      document.getElementById('total-num').textContent = cards.length;
+      document.getElementById('btn-prev').disabled = currentIndex === 0;
+      document.getElementById('btn-next').disabled = currentIndex === cards.length - 1;
+      resetFlip();
+    }
+
+    renderList();
+  }
+
+  function resetFlip() {
+    isFlipped = false;
+    document.getElementById('card-inner').classList.remove('flipped');
+  }
+
+  function flipCard() {
+    isFlipped = !isFlipped;
+    document.getElementById('card-inner').classList.toggle('flipped', isFlipped);
+  }
+
+  function prevCard() {
+    if (currentIndex > 0) { currentIndex--; render(); }
+  }
+
+  function nextCard() {
+    if (currentIndex < cards.length - 1) { currentIndex++; render(); }
+  }
+
+  function speakFr() {
+    if (!cards.length) return;
+    speak(cards[currentIndex].fr, 'fr-FR', 'btn-fr');
+  }
+
+  function speakJa() {
+    if (!cards.length) return;
+    speak(cards[currentIndex].ja, 'ja-JP', 'btn-ja');
+  }
+
+  function speak(text, lang, btnId) {
+    if (!window.speechSynthesis) { showToast('⚠️ このブラウザは音声合成に対応していません'); return; }
+    window.speechSynthesis.cancel();
+    const btn = document.getElementById(btnId);
+    const orig = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = btn.innerHTML.replace('🔊', '⏳');
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang;
+    utter.rate = 0.9;
+
+    // Try to find a matching voice
+    const voices = window.speechSynthesis.getVoices();
+    const match = voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+    if (match) utter.voice = match;
+
+    utter.onend = () => { btn.disabled = false; btn.innerHTML = orig; };
+    utter.onerror = () => { btn.disabled = false; btn.innerHTML = orig; };
+    window.speechSynthesis.speak(utter);
+  }
+
+  // Voices load async in some browsers
+  if (window.speechSynthesis) {
+    window.speechSynthesis.onvoiceschanged = () => {};
+  }
+
+  function renderList() {
+    const list = document.getElementById('card-list');
+    list.innerHTML = cards.map((c, i) => `
+      <div class="list-item">
+        <div class="fr">${escHtml(c.fr)}</div>
+        <div class="ja">${escHtml(c.ja)}</div>
+        <button class="btn-delete" onclick="deleteCard(${i})" title="削除">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function deleteCard(i) {
+    if (!confirm('このカードを削除しますか？')) return;
+    cards.splice(i, 1);
+    if (currentIndex >= cards.length) currentIndex = Math.max(0, cards.length - 1);
+    save();
+    render();
+    showToast('🗑️ カードを削除しました');
+  }
+
+  let listVisible = false;
+  function toggleList(btn) {
+    listVisible = !listVisible;
+    const list = document.getElementById('card-list');
+    list.classList.toggle('hidden', !listVisible);
+    btn.textContent = listVisible ? '📋 一覧を閉じる' : '📋 登録済みカード一覧を表示';
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowLeft') prevCard();
+    if (e.key === 'ArrowRight') nextCard();
+    if (e.key === ' ') { e.preventDefault(); flipCard(); }
+  });
+
+  // Init with sample cards if empty
+  if (cards.length === 0) {
+    cards = [
+      { fr: "Bonjour, comment allez-vous ?", ja: "こんにちは、お元気ですか？" },
+      { fr: "Je voudrais un café, s'il vous plaît.", ja: "コーヒーを一杯ください。" },
+      { fr: "Où se trouve la gare la plus proche ?", ja: "一番近い駅はどこですか？" },
+    ];
+    save();
+  }
+
+  render();
+</script>
+</body>
+</html>
