@@ -3,778 +3,862 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Français — フラッシュカード</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Cartes Éclair — フランス語フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bleu: #002395;
-    --blanc: #FFFFFF;
-    --rouge: #ED2939;
-    --bleu-light: #e8ecff;
-    --rouge-light: #ffeaec;
-    --text: #1a1a2e;
-    --text-soft: #5a5a7a;
-    --card-bg: #ffffff;
-    --shadow: 0 20px 60px rgba(0,35,149,0.12);
-    --shadow-hover: 0 30px 80px rgba(0,35,149,0.2);
+    --ink: #1a1209;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --terracotta: #c4553a;
+    --sage: #5a7a5a;
+    --shadow: rgba(26,18,9,0.15);
+    --card-bg: #fffdf7;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background: #f4f5fb;
-    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
     min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Background decoration */
-  body::before {
-    content: '';
-    position: fixed;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0,35,149,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    bottom: -150px; left: -150px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(237,41,57,0.05) 0%, transparent 70%);
-    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(201,168,76,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(196,85,58,0.08) 0%, transparent 50%);
   }
 
   header {
-    background: var(--bleu);
-    color: white;
-    padding: 0;
-    position: relative;
-    overflow: hidden;
+    text-align: center;
+    padding: 2.5rem 1rem 1rem;
+    border-bottom: 1px solid var(--gold-light);
   }
-
-  .flag-stripe {
-    display: flex;
-    height: 6px;
-  }
-  .flag-stripe span:nth-child(1) { flex: 1; background: var(--bleu); }
-  .flag-stripe span:nth-child(2) { flex: 1; background: var(--blanc); }
-  .flag-stripe span:nth-child(3) { flex: 1; background: var(--rouge); }
-
-  .header-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 28px 24px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .flag-icon {
-    width: 48px; height: 32px;
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .flag-icon span { flex: 1; }
-  .flag-icon span:nth-child(1) { background: var(--bleu); }
-  .flag-icon span:nth-child(2) { background: var(--blanc); }
-  .flag-icon span:nth-child(3) { background: var(--rouge); }
 
   header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.9rem;
-    letter-spacing: 0.02em;
-    line-height: 1;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
   }
-  header h1 em {
+
+  header h1 span {
+    color: var(--gold);
     font-style: italic;
-    opacity: 0.8;
-    font-size: 1rem;
-    display: block;
-    font-weight: 400;
-    margin-top: 4px;
-    letter-spacing: 0.1em;
-    font-family: 'Noto Sans JP', sans-serif;
   }
 
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* ── Registration Form ── */
-  .form-section {
-    background: white;
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: var(--shadow);
-    margin-bottom: 48px;
-    position: relative;
-    overflow: hidden;
-  }
-  .form-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--bleu), var(--rouge));
-  }
-
-  .form-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--bleu);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .form-section h2::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--bleu-light), transparent);
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-  @media(max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
-
-  .field label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 500;
+  header p {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #6b5c3e;
+    margin-top: 0.3rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-soft);
-    margin-bottom: 8px;
   }
-  .field label .lang-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-  .field:first-child label .lang-tag { background: var(--bleu-light); color: var(--bleu); }
-  .field:last-child label .lang-tag { background: #fef3e2; color: #e67c00; }
 
-  textarea {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #e8e8f0;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    resize: vertical;
-    min-height: 90px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    color: var(--text);
-    line-height: 1.6;
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
   }
-  textarea:focus {
-    outline: none;
-    border-color: var(--bleu);
-    box-shadow: 0 0 0 3px rgba(0,35,149,0.08);
-  }
-  textarea::placeholder { color: #b0b0c8; }
 
-  .btn-add {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--bleu), #1a3aab);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.95rem;
+  /* ─── Tabs ─── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--gold-light);
+  }
+
+  .tab {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.88rem;
     font-weight: 500;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    letter-spacing: 0.03em;
+    border: none;
+    background: none;
+    color: #8a7355;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
   }
-  .btn-add:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,35,149,0.3);
-  }
-  .btn-add:active { transform: translateY(0); }
 
-  /* ── Card Viewer ── */
-  .cards-section h2 {
+  .tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  .tab:hover:not(.active) { color: var(--ink); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ─── Form ─── */
+  .form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-radius: 12px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .form-card h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--text);
-    margin-bottom: 8px;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
     display: flex;
     align-items: center;
-    gap: 12px;
-  }
-  .count-badge {
-    background: var(--rouge);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-family: 'Noto Sans JP', sans-serif;
+    gap: 0.5rem;
   }
 
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-soft);
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
-  .empty-state .empty-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    display: block;
-    opacity: 0.4;
-  }
-  .empty-state p { font-size: 0.9rem; line-height: 1.8; }
 
-  /* ── Flip Card ── */
-  .card-viewer {
-    position: relative;
+  .form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 28px;
+    gap: 0.4rem;
   }
 
-  .card-wrapper {
+  .form-group.full { grid-column: 1/-1; }
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #8a7355;
+  }
+
+  input, select, textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    background: #fffef9;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
     width: 100%;
-    max-width: 560px;
-    height: 280px;
-    perspective: 1200px;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+  }
+
+  .category-row {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .category-row input { flex: 1; }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.65rem 1.4rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-primary:hover { background: #2d1f0a; transform: translateY(-1px); box-shadow: 0 4px 12px var(--shadow); }
+
+  .btn-sm {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold-light);
+    color: var(--ink);
+  }
+
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: white;
+  }
+
+  .btn-gold:hover { background: #b8943d; }
+
+  /* ─── Category Badges ─── */
+  .cat-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cat-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    background: var(--gold-light);
+    color: #5a4020;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid transparent;
+  }
+
+  .cat-badge:hover { border-color: var(--gold); }
+  .cat-badge.selected { background: var(--gold); color: white; border-color: var(--gold); }
+  .cat-badge.del-mode { border-color: var(--terracotta); }
+
+  /* ─── Flashcard Area ─── */
+  .fc-controls {
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  .fc-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .toggle-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .toggle-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--gold-light);
+    background: transparent;
+    cursor: pointer;
+    color: var(--ink);
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .toggle-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+  .card-count {
+    font-size: 0.8rem;
+    color: #8a7355;
+    white-space: nowrap;
+    align-self: flex-end;
+    padding-bottom: 0.4rem;
+  }
+
+  /* ─── Flashcard ─── */
+  .fc-wrapper {
+    perspective: 1000px;
+    height: 260px;
+    margin-bottom: 1.5rem;
     cursor: pointer;
   }
 
-  .card-inner {
-    position: relative;
+  .fc-inner {
     width: 100%;
     height: 100%;
-    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
     transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
   }
-  .card-inner.flipped { transform: rotateY(180deg); }
 
-  .card-face {
+  .fc-inner.flipped { transform: rotateY(180deg); }
+
+  .fc-face {
     position: absolute;
     inset: 0;
-    border-radius: 24px;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px var(--shadow);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 36px;
+    justify-content: center;
+    padding: 2rem;
     text-align: center;
-    box-shadow: var(--shadow);
-    overflow: hidden;
+    gap: 0.5rem;
   }
 
-  .card-front {
-    background: var(--card-bg);
-    border: 2px solid rgba(0,35,149,0.08);
-  }
-  .card-front::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 6px; height: 100%;
-    background: linear-gradient(180deg, var(--bleu), #4466dd);
-    border-radius: 24px 0 0 24px;
-  }
-  .card-front::after {
-    content: 'Français';
-    position: absolute;
-    top: 16px; right: 20px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--bleu);
-    opacity: 0.5;
-  }
+  .fc-face.back { transform: rotateY(180deg); }
 
-  .card-back {
-    background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
-    transform: rotateY(180deg);
-    border: none;
-  }
-  .card-back::after {
-    content: '日本語';
-    position: absolute;
-    top: 16px; right: 20px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.4);
-  }
-
-  .card-hint {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.65rem;
+  .fc-lang-label {
+    font-size: 0.7rem;
     letter-spacing: 0.1em;
-    opacity: 0.35;
-    white-space: nowrap;
+    text-transform: uppercase;
+    color: #b09060;
+    font-weight: 500;
   }
-  .card-front .card-hint { color: var(--text); }
-  .card-back .card-hint { color: white; }
 
-  .card-text-fr {
+  .fc-text {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-    color: var(--text);
-    line-height: 1.6;
+    font-size: clamp(1.2rem, 4vw, 1.9rem);
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .fc-category {
+    font-size: 0.72rem;
+    color: white;
+    background: var(--gold);
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .fc-hint {
+    font-size: 0.72rem;
+    color: #b09060;
+    margin-top: 0.8rem;
     font-style: italic;
   }
 
-  .card-text-ja {
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    color: rgba(255,255,255,0.92);
-    line-height: 1.8;
-    font-weight: 300;
-  }
-
-  /* ── Audio Buttons ── */
-  .audio-controls {
+  .fc-empty {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    height: 260px;
+    background: var(--card-bg);
+    border: 2px dashed var(--gold-light);
+    border-radius: 16px;
+    color: #b09060;
+    gap: 0.5rem;
   }
 
-  .btn-audio {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 50px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
+  .fc-empty .icon { font-size: 2.5rem; }
+  .fc-empty p { font-size: 0.9rem; }
+
+  /* ─── Navigation ─── */
+  .fc-nav {
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
-    letter-spacing: 0.02em;
-  }
-  .btn-audio:hover { transform: translateY(-2px); }
-  .btn-audio:active { transform: scale(0.97); }
-  .btn-audio:disabled { opacity: 0.5; cursor: default; transform: none; }
-
-  .btn-audio-fr {
-    background: var(--bleu-light);
-    color: var(--bleu);
-    box-shadow: 0 4px 16px rgba(0,35,149,0.12);
-  }
-  .btn-audio-fr:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(0,35,149,0.2); }
-
-  .btn-audio-ja {
-    background: #fff0e8;
-    color: #c44d00;
-    box-shadow: 0 4px 16px rgba(237,41,57,0.1);
-  }
-  .btn-audio-ja:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(237,41,57,0.18); }
-
-  /* ── Navigation ── */
-  .nav-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
   }
 
-  .btn-nav {
-    width: 48px; height: 48px;
+  .nav-btn {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: 2px solid #e0e0ef;
-    background: white;
-    color: var(--text);
-    font-size: 1.2rem;
+    border: 1.5px solid var(--gold-light);
+    background: var(--card-bg);
     cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--ink);
+    transition: all 0.18s;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.15s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
-  .btn-nav:hover:not(:disabled) {
-    border-color: var(--bleu);
-    color: var(--bleu);
-    box-shadow: 0 6px 18px rgba(0,35,149,0.15);
-    transform: scale(1.08);
-  }
-  .btn-nav:disabled { opacity: 0.3; cursor: default; }
 
-  .card-counter {
-    font-size: 0.85rem;
-    color: var(--text-soft);
+  .nav-btn:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .nav-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
     min-width: 80px;
     text-align: center;
-    font-weight: 500;
-  }
-  .card-counter strong {
-    color: var(--bleu);
-    font-size: 1.1rem;
-    font-family: 'Playfair Display', serif;
+    color: #5a4020;
   }
 
-  /* ── Card List ── */
-  .card-list-toggle {
-    margin-top: 40px;
-    cursor: pointer;
-    background: none;
-    border: 2px dashed #d0d0e8;
-    border-radius: 12px;
-    padding: 14px;
-    width: 100%;
-    font-family: inherit;
-    font-size: 0.85rem;
-    color: var(--text-soft);
-    transition: all 0.2s;
+  .audio-row {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 8px;
-  }
-  .card-list-toggle:hover {
-    border-color: var(--bleu);
-    color: var(--bleu);
-    background: var(--bleu-light);
+    gap: 0.8rem;
+    margin-bottom: 2rem;
   }
 
-  .card-list {
-    display: none;
-    margin-top: 16px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 12px;
+  /* ─── Card List ─── */
+  .list-controls {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
   }
-  .card-list.hidden { display: none; }
 
-  .list-item {
-    background: white;
-    border-radius: 14px;
-    padding: 16px;
-    border: 1px solid #eaeaf4;
-    position: relative;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
-  }
-  .list-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: linear-gradient(180deg, var(--bleu), var(--rouge));
-  }
-  .list-item:hover { box-shadow: 0 4px 20px rgba(0,35,149,0.1); }
+  .list-controls select { width: auto; flex: 1; min-width: 130px; }
 
-  .list-item .fr { font-family: 'Playfair Display', serif; font-style: italic; color: var(--bleu); font-size: 0.9rem; margin-bottom: 6px; }
-  .list-item .ja { font-size: 0.82rem; color: var(--text-soft); }
+  .card-list { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .card-item {
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    animation: slideIn 0.25s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-item-texts { flex: 1; }
+  .card-item-fr { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 0.2rem; }
+  .card-item-ja { font-size: 0.88rem; color: #6b5c3e; }
+
+  .card-item-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
 
   .btn-delete {
-    position: absolute;
-    top: 10px; right: 10px;
-    width: 24px; height: 24px;
-    border-radius: 50%;
+    background: none;
     border: none;
-    background: #ffe0e3;
-    color: var(--rouge);
-    font-size: 0.75rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.15s;
+    font-size: 1rem;
+    color: #c4553a66;
+    transition: color 0.15s;
+    padding: 0.2rem;
   }
-  .list-item:hover .btn-delete { opacity: 1; }
 
-  /* Toast */
+  .btn-delete:hover { color: var(--terracotta); }
+
+  .empty-list {
+    text-align: center;
+    color: #b09060;
+    font-style: italic;
+    padding: 2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--gold-light);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
   .toast {
     position: fixed;
-    bottom: 32px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1a1a2e;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 0.85rem;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
     opacity: 0;
-    transition: all 0.3s;
     pointer-events: none;
-    z-index: 1000;
+    transition: opacity 0.3s;
+    z-index: 999;
     white-space: nowrap;
   }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+    .fc-controls { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="flag-stripe"><span></span><span></span><span></span></div>
-  <div class="header-inner">
-    <div class="flag-icon"><span></span><span></span><span></span></div>
-    <h1>Cartes Éclair <em>フランス語フラッシュカード</em></h1>
-  </div>
+  <h1>Cartes <span>Éclair</span></h1>
+  <p>フランス語フラッシュカード</p>
 </header>
 
-<main>
-  <!-- Registration Form -->
-  <section class="form-section">
-    <h2>✏️ カードを追加</h2>
-    <div class="form-grid">
-      <div class="field">
-        <label>フランス語文章 <span class="lang-tag">FR</span></label>
-        <textarea id="input-fr" placeholder="例：Je suis très heureux de vous rencontrer."></textarea>
-      </div>
-      <div class="field">
-        <label>日本語訳 <span class="lang-tag">JA</span></label>
-        <textarea id="input-ja" placeholder="例：お会いできてとても嬉しいです。"></textarea>
-      </div>
-    </div>
-    <button class="btn-add" onclick="addCard()">
-      <span>＋</span> カードを登録する
-    </button>
-  </section>
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('add')">✏️ カードを追加</button>
+    <button class="tab" onclick="switchTab('flash')">🃏 フラッシュカード</button>
+    <button class="tab" onclick="switchTab('list')">📋 カード一覧</button>
+  </div>
 
-  <!-- Card Viewer -->
-  <section class="cards-section">
-    <h2>
-      フラッシュカード
-      <span class="count-badge" id="count-badge">0</span>
-    </h2>
-
-    <div id="viewer-empty" class="empty-state">
-      <span class="empty-icon">🃏</span>
-      <p>まだカードがありません。<br>上のフォームからフランス語文章を登録しましょう！</p>
-    </div>
-
-    <div id="viewer" class="card-viewer" style="display:none">
-      <!-- Flip Card -->
-      <div class="card-wrapper" onclick="flipCard()" id="card-wrapper">
-        <div class="card-inner" id="card-inner">
-          <div class="card-face card-front">
-            <div class="card-text-fr" id="card-fr-text"></div>
-            <span class="card-hint">クリックして日本語を見る</span>
-          </div>
-          <div class="card-face card-back">
-            <div class="card-text-ja" id="card-ja-text"></div>
-            <span class="card-hint">クリックしてフランス語に戻る</span>
-          </div>
+  <!-- ─── ADD PANEL ─── -->
+  <div id="panel-add" class="panel active">
+    <div class="form-card">
+      <h2>🌿 新しいカードを登録</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>フランス語文章 FR</label>
+          <input type="text" id="inp-fr" placeholder="Bonjour, comment ça va ?" />
+        </div>
+        <div class="form-group">
+          <label>日本語訳 JA</label>
+          <input type="text" id="inp-ja" placeholder="こんにちは、元気ですか？" />
         </div>
       </div>
-
-      <!-- Audio Controls -->
-      <div class="audio-controls">
-        <button class="btn-audio btn-audio-fr" onclick="speakFr()" id="btn-fr">
-          🔊 フランス語で聴く
-        </button>
-        <button class="btn-audio btn-audio-ja" onclick="speakJa()" id="btn-ja">
-          🔊 日本語で聴く
-        </button>
-      </div>
-
-      <!-- Navigation -->
-      <div class="nav-controls">
-        <button class="btn-nav" id="btn-prev" onclick="prevCard()">←</button>
-        <div class="card-counter">
-          <strong id="cur-num">1</strong> / <span id="total-num">1</span>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>カテゴリ</label>
+          <div class="category-row">
+            <input type="text" id="inp-cat" placeholder="カテゴリ名（例：挨拶、動詞、旅行）" list="cat-list" />
+            <datalist id="cat-list"></datalist>
+          </div>
+          <div class="cat-badges" id="cat-suggestions"></div>
         </div>
-        <button class="btn-nav" id="btn-next" onclick="nextCard()">→</button>
       </div>
+      <button class="btn btn-primary" onclick="addCard()">＋ カードを登録する</button>
+    </div>
+  </div>
+
+  <!-- ─── FLASHCARD PANEL ─── -->
+  <div id="panel-flash" class="panel">
+    <div class="fc-controls">
+      <div class="fc-control-group">
+        <label>カテゴリフィルター</label>
+        <select id="fc-cat-filter" onchange="applyFilters()">
+          <option value="">すべて</option>
+        </select>
+      </div>
+      <div class="fc-control-group">
+        <label>開始言語</label>
+        <div class="toggle-row">
+          <button class="toggle-btn active" id="btn-lang-fr" onclick="setStartLang('fr')">🇫🇷 フランス語</button>
+          <button class="toggle-btn" id="btn-lang-ja" onclick="setStartLang('ja')">🇯🇵 日本語</button>
+        </div>
+      </div>
+      <div class="fc-control-group">
+        <label>シャッフル</label>
+        <div class="toggle-row">
+          <button class="toggle-btn" id="btn-shuffle" onclick="toggleShuffle()">🔀 シャッフル</button>
+        </div>
+      </div>
+      <div class="card-count" id="fc-count">0 枚</div>
     </div>
 
-    <!-- List Toggle -->
-    <button class="card-list-toggle" onclick="toggleList(this)" id="list-toggle" style="display:none">
-      📋 登録済みカード一覧を表示
-    </button>
-    <div class="card-list hidden" id="card-list"></div>
-  </section>
-</main>
+    <div class="progress-bar"><div class="progress-fill" id="fc-progress"></div></div>
+
+    <div id="fc-display"></div>
+
+    <div class="fc-nav">
+      <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">←</button>
+      <span class="nav-counter" id="fc-nav-counter">— / —</span>
+      <button class="nav-btn" id="btn-next" onclick="navigate(1)">→</button>
+    </div>
+
+    <div class="audio-row">
+      <button class="btn btn-outline btn-sm" onclick="speakCurrent('fr')">🔊 フランス語で聴く</button>
+      <button class="btn btn-outline btn-sm" onclick="speakCurrent('ja')">🔊 日本語で聴く</button>
+    </div>
+  </div>
+
+  <!-- ─── LIST PANEL ─── -->
+  <div id="panel-list" class="panel">
+    <div class="list-controls">
+      <select id="list-cat-filter" onchange="renderList()">
+        <option value="">すべてのカテゴリ</option>
+      </select>
+      <button class="btn btn-outline btn-sm" onclick="exportCards()">📥 エクスポート</button>
+    </div>
+    <div class="card-list" id="card-list"></div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  let cards = JSON.parse(localStorage.getItem('fr-cards') || '[]');
-  let currentIndex = 0;
-  let isFlipped = false;
+// ─── State ───────────────────────────────────────────────
+let cards = JSON.parse(localStorage.getItem('cartes-eclair-v2') || '[]');
+let startLang = 'fr';
+let shuffleOn = false;
+let fcCards = [];   // filtered + possibly shuffled
+let fcIndex = 0;
+let fcFlipped = false;
 
-  function save() {
-    localStorage.setItem('fr-cards', JSON.stringify(cards));
-  }
+// ─── Persist ─────────────────────────────────────────────
+function save() {
+  localStorage.setItem('cartes-eclair-v2', JSON.stringify(cards));
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2400);
-  }
+// ─── Tab ─────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const idx = {add:0,flash:1,list:2}[name];
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+  if (name === 'flash') { refreshCatFilter('fc-cat-filter'); applyFilters(); }
+  if (name === 'list')  { refreshCatFilter('list-cat-filter'); renderList(); }
+}
 
-  function addCard() {
-    const fr = document.getElementById('input-fr').value.trim();
-    const ja = document.getElementById('input-ja').value.trim();
-    if (!fr || !ja) { showToast('⚠️ 両方の欄を入力してください'); return; }
-    cards.push({ fr, ja });
-    save();
-    document.getElementById('input-fr').value = '';
-    document.getElementById('input-ja').value = '';
-    currentIndex = cards.length - 1;
-    render();
-    showToast('✅ カードを追加しました！');
-  }
+// ─── Categories ──────────────────────────────────────────
+function allCategories() {
+  return [...new Set(cards.map(c => c.cat).filter(Boolean))].sort();
+}
 
-  function render() {
-    const isEmpty = cards.length === 0;
-    document.getElementById('viewer-empty').style.display = isEmpty ? '' : 'none';
-    document.getElementById('viewer').style.display = isEmpty ? 'none' : 'flex';
-    document.getElementById('list-toggle').style.display = isEmpty ? 'none' : '';
-    document.getElementById('count-badge').textContent = cards.length;
-
-    if (!isEmpty) {
-      const card = cards[currentIndex];
-      document.getElementById('card-fr-text').textContent = card.fr;
-      document.getElementById('card-ja-text').textContent = card.ja;
-      document.getElementById('cur-num').textContent = currentIndex + 1;
-      document.getElementById('total-num').textContent = cards.length;
-      document.getElementById('btn-prev').disabled = currentIndex === 0;
-      document.getElementById('btn-next').disabled = currentIndex === cards.length - 1;
-      resetFlip();
-    }
-
-    renderList();
-  }
-
-  function resetFlip() {
-    isFlipped = false;
-    document.getElementById('card-inner').classList.remove('flipped');
-  }
-
-  function flipCard() {
-    isFlipped = !isFlipped;
-    document.getElementById('card-inner').classList.toggle('flipped', isFlipped);
-  }
-
-  function prevCard() {
-    if (currentIndex > 0) { currentIndex--; render(); }
-  }
-
-  function nextCard() {
-    if (currentIndex < cards.length - 1) { currentIndex++; render(); }
-  }
-
-  function speakFr() {
-    if (!cards.length) return;
-    speak(cards[currentIndex].fr, 'fr-FR', 'btn-fr');
-  }
-
-  function speakJa() {
-    if (!cards.length) return;
-    speak(cards[currentIndex].ja, 'ja-JP', 'btn-ja');
-  }
-
-  function speak(text, lang, btnId) {
-    if (!window.speechSynthesis) { showToast('⚠️ このブラウザは音声合成に対応していません'); return; }
-    window.speechSynthesis.cancel();
-    const btn = document.getElementById(btnId);
-    const orig = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = btn.innerHTML.replace('🔊', '⏳');
-
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = lang;
-    utter.rate = 0.9;
-
-    // Try to find a matching voice
-    const voices = window.speechSynthesis.getVoices();
-    const match = voices.find(v => v.lang.startsWith(lang.split('-')[0]));
-    if (match) utter.voice = match;
-
-    utter.onend = () => { btn.disabled = false; btn.innerHTML = orig; };
-    utter.onerror = () => { btn.disabled = false; btn.innerHTML = orig; };
-    window.speechSynthesis.speak(utter);
-  }
-
-  // Voices load async in some browsers
-  if (window.speechSynthesis) {
-    window.speechSynthesis.onvoiceschanged = () => {};
-  }
-
-  function renderList() {
-    const list = document.getElementById('card-list');
-    list.innerHTML = cards.map((c, i) => `
-      <div class="list-item">
-        <div class="fr">${escHtml(c.fr)}</div>
-        <div class="ja">${escHtml(c.ja)}</div>
-        <button class="btn-delete" onclick="deleteCard(${i})" title="削除">✕</button>
-      </div>
-    `).join('');
-  }
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function deleteCard(i) {
-    if (!confirm('このカードを削除しますか？')) return;
-    cards.splice(i, 1);
-    if (currentIndex >= cards.length) currentIndex = Math.max(0, cards.length - 1);
-    save();
-    render();
-    showToast('🗑️ カードを削除しました');
-  }
-
-  let listVisible = false;
-  function toggleList(btn) {
-    listVisible = !listVisible;
-    const list = document.getElementById('card-list');
-    list.classList.toggle('hidden', !listVisible);
-    btn.textContent = listVisible ? '📋 一覧を閉じる' : '📋 登録済みカード一覧を表示';
-  }
-
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (e.target.tagName === 'TEXTAREA') return;
-    if (e.key === 'ArrowLeft') prevCard();
-    if (e.key === 'ArrowRight') nextCard();
-    if (e.key === ' ') { e.preventDefault(); flipCard(); }
+function refreshCatFilter(id) {
+  const sel = document.getElementById(id);
+  const current = sel.value;
+  const label = id === 'fc-cat-filter' ? 'すべて' : 'すべてのカテゴリ';
+  sel.innerHTML = `<option value="">${label}</option>`;
+  allCategories().forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat; opt.textContent = cat;
+    if (cat === current) opt.selected = true;
+    sel.appendChild(opt);
   });
+  updateCatDatalist();
+  renderCatSuggestions();
+}
 
-  // Init with sample cards if empty
-  if (cards.length === 0) {
-    cards = [
-      { fr: "Bonjour, comment allez-vous ?", ja: "こんにちは、お元気ですか？" },
-      { fr: "Je voudrais un café, s'il vous plaît.", ja: "コーヒーを一杯ください。" },
-      { fr: "Où se trouve la gare la plus proche ?", ja: "一番近い駅はどこですか？" },
-    ];
-    save();
+function updateCatDatalist() {
+  const dl = document.getElementById('cat-list');
+  dl.innerHTML = '';
+  allCategories().forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    dl.appendChild(opt);
+  });
+}
+
+function renderCatSuggestions() {
+  const container = document.getElementById('cat-suggestions');
+  const cats = allCategories();
+  if (!cats.length) { container.innerHTML = ''; return; }
+  container.innerHTML = cats.map(c =>
+    `<span class="cat-badge" onclick="document.getElementById('inp-cat').value='${c}'">${c}</span>`
+  ).join('');
+}
+
+// ─── Add Card ────────────────────────────────────────────
+function addCard() {
+  const fr = document.getElementById('inp-fr').value.trim();
+  const ja = document.getElementById('inp-ja').value.trim();
+  const cat = document.getElementById('inp-cat').value.trim();
+  if (!fr || !ja) { showToast('フランス語と日本語を入力してください'); return; }
+  cards.push({ id: Date.now(), fr, ja, cat: cat || '' });
+  save();
+  document.getElementById('inp-fr').value = '';
+  document.getElementById('inp-ja').value = '';
+  document.getElementById('inp-cat').value = '';
+  showToast('✓ カードを登録しました');
+  renderCatSuggestions();
+  updateCatDatalist();
+}
+
+// ─── Flashcard ───────────────────────────────────────────
+function setStartLang(lang) {
+  startLang = lang;
+  document.getElementById('btn-lang-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('btn-lang-ja').classList.toggle('active', lang === 'ja');
+  applyFilters();
+}
+
+function toggleShuffle() {
+  shuffleOn = !shuffleOn;
+  document.getElementById('btn-shuffle').classList.toggle('active', shuffleOn);
+  applyFilters();
+}
+
+function applyFilters() {
+  const cat = document.getElementById('fc-cat-filter').value;
+  let filtered = cat ? cards.filter(c => c.cat === cat) : [...cards];
+  if (shuffleOn) filtered = shuffleArr(filtered);
+  fcCards = filtered;
+  fcIndex = 0;
+  fcFlipped = false;
+  document.getElementById('fc-count').textContent = fcCards.length + ' 枚';
+  renderCard();
+}
+
+function shuffleArr(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderCard() {
+  const display = document.getElementById('fc-display');
+  const counter = document.getElementById('fc-nav-counter');
+  const progress = document.getElementById('fc-progress');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  if (!fcCards.length) {
+    display.innerHTML = `
+      <div class="fc-empty">
+        <div class="icon">🃏</div>
+        <p>このカテゴリにカードがありません</p>
+        <p style="font-size:0.78rem; margin-top:0.3rem">カードを追加タブから登録しましょう</p>
+      </div>`;
+    counter.textContent = '— / —';
+    progress.style.width = '0%';
+    btnPrev.disabled = btnNext.disabled = true;
+    return;
   }
 
-  render();
+  const card = fcCards[fcIndex];
+  const frontLang = startLang;
+  const backLang = startLang === 'fr' ? 'ja' : 'fr';
+  const frontText = frontLang === 'fr' ? card.fr : card.ja;
+  const backText  = backLang  === 'fr' ? card.fr : card.ja;
+  const frontLabel = frontLang === 'fr' ? '🇫🇷 Français' : '🇯🇵 日本語';
+  const backLabel  = backLang  === 'fr' ? '🇫🇷 Français' : '🇯🇵 日本語';
+  const catTag = card.cat ? `<span class="fc-category">${card.cat}</span>` : '';
+
+  display.innerHTML = `
+    <div class="fc-wrapper" onclick="flipCard()">
+      <div class="fc-inner ${fcFlipped ? 'flipped' : ''}" id="fc-inner">
+        <div class="fc-face front">
+          <div class="fc-lang-label">${frontLabel}</div>
+          <div class="fc-text">${frontText}</div>
+          ${catTag}
+          <div class="fc-hint">クリックして${backLang === 'fr' ? 'フランス語' : '日本語'}を見る</div>
+        </div>
+        <div class="fc-face back">
+          <div class="fc-lang-label">${backLabel}</div>
+          <div class="fc-text">${backText}</div>
+          ${catTag}
+          <div class="fc-hint">クリックして戻る</div>
+        </div>
+      </div>
+    </div>`;
+
+  counter.textContent = `${fcIndex + 1} / ${fcCards.length}`;
+  const pct = fcCards.length > 1 ? ((fcIndex) / (fcCards.length - 1)) * 100 : 100;
+  progress.style.width = pct + '%';
+  btnPrev.disabled = fcIndex === 0;
+  btnNext.disabled = fcIndex === fcCards.length - 1;
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  const inner = document.getElementById('fc-inner');
+  if (inner) inner.classList.toggle('flipped', fcFlipped);
+}
+
+function navigate(dir) {
+  fcIndex = Math.max(0, Math.min(fcCards.length - 1, fcIndex + dir));
+  fcFlipped = false;
+  renderCard();
+}
+
+// ─── Audio ───────────────────────────────────────────────
+function speakCurrent(lang) {
+  if (!fcCards.length) return;
+  const card = fcCards[fcIndex];
+  const text = lang === 'fr' ? card.fr : card.ja;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang === 'fr' ? 'fr-FR' : 'ja-JP';
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
+}
+
+// ─── List ────────────────────────────────────────────────
+function renderList() {
+  const cat = document.getElementById('list-cat-filter').value;
+  const filtered = cat ? cards.filter(c => c.cat === cat) : [...cards];
+  const list = document.getElementById('card-list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-list">カードがありません</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(c => `
+    <div class="card-item" id="item-${c.id}">
+      <div class="card-item-texts">
+        <div class="card-item-fr">${c.fr}</div>
+        <div class="card-item-ja">${c.ja}</div>
+      </div>
+      <div class="card-item-meta">
+        ${c.cat ? `<span class="cat-badge" style="cursor:default">${c.cat}</span>` : ''}
+        <button class="btn-delete" onclick="deleteCard(${c.id})" title="削除">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteCard(id) {
+  cards = cards.filter(c => c.id !== id);
+  save();
+  refreshCatFilter('list-cat-filter');
+  renderList();
+  showToast('カードを削除しました');
+}
+
+function exportCards() {
+  const cat = document.getElementById('list-cat-filter').value;
+  const filtered = cat ? cards.filter(c => c.cat === cat) : [...cards];
+  const csv = 'FR,JA,カテゴリ\n' + filtered.map(c =>
+    `"${c.fr.replace(/"/g,'""')}","${c.ja.replace(/"/g,'""')}","${c.cat}"`
+  ).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'cartes-eclair.csv';
+  a.click();
+}
+
+// ─── Toast ───────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── Init ────────────────────────────────────────────────
+updateCatDatalist();
+renderCatSuggestions();
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const panel = document.getElementById('panel-flash');
+  if (!panel.classList.contains('active')) return;
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
 </script>
 </body>
 </html>
